@@ -16,6 +16,7 @@
     "axios": "^0.19.2",
     "commander": "^5.1.0",
     "form-data": "^3.0.0",
+    "mime-types": "^2.1.27",
     "natives": "^1.1.6",
     "node-zip": "^1.1.1",
     "recursive-readdir": "^2.2.2",
