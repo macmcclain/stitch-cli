@@ -1,0 +1,33 @@
+{
+  "name": "stitch-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "stitch": "./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.678.0",
+    "axios": "^0.19.2",
+    "commander": "^5.1.0",
+    "form-data": "^3.0.0",
+    "natives": "^1.1.6",
+    "node-zip": "^1.1.1",
+    "recursive-readdir": "^2.2.2",
+    "request": "^2.88.2",
+    "s3": "^4.4.0",
+    "s3-folder-upload": "^2.3.0",
+    "tar": "^6.0.2",
+    "tar-fs": "^2.1.0",
+    "yamljs": "^0.3.0",
+    "zip-a-folder": "0.0.12"
+  },
+  "resolutions": {
+    "graceful-fs": "4.2.3"
+  }
+}
