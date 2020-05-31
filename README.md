@@ -7,9 +7,11 @@ A CLI (command line client) to create and publish Stitch apps for the Stitch mic
 - Use the generated stitch.yml file instead of package.json.
 - Add the host option to publish
 
-## Installation
+## Install
 
+```shell script
 npm install stitch-cli -g
+```
 
 ## Commands
 
@@ -25,4 +27,14 @@ Publish your Stitch app to the server.
 
 ```shell script
 $ stitch publish --server=name-of-your-server-config-entry
+```
+
+## Help
+See options for each command.
+
+```shell script
+$ stitch --help
+
+# example help for a specific command
+$ stitch create --help
 ```
