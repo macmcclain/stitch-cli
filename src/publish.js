@@ -11,7 +11,8 @@ var recursive = require("recursive-readdir");
 var s3Upload = require('./lib/s3Upload');
 
 
-
+const host = "https://epywlgqvlf.execute-api.us-east-1.amazonaws.com/stage/";
+//const host = "http://localhost:3355/stage/"
 
 module.exports = async (dir) => {
   // get the config.yml file.
@@ -20,6 +21,7 @@ module.exports = async (dir) => {
   const config = JSON.parse(configJSON);
 
 
+  console.log("host", host)
   //console.log("config", config);
   try {
 
@@ -27,9 +29,8 @@ module.exports = async (dir) => {
     const assets = await recursive(config.stitch.publish_dir, [ "*.html", "*.map"]);
     const cleanAssets = assets.map(f => f.replace(config.stitch.publish_dir, ''));
 
-
     // create the entry in the server.
-    let resUpload = await axios.post('http://localhost:3355/stage/api/app/upload', {
+    let resUpload = await axios.post(host + 'api/app/upload', {
       name: config.name,
       version: config.version,
       config: JSON.stringify(config),
@@ -39,14 +40,13 @@ module.exports = async (dir) => {
     // app item from server.
     const item = resUpload.data;
 
-
     // get entry config
     const publishDir = config.stitch.publish_dir;
     const publishPath = path.join(dir, publishDir);
     await s3Upload(publishPath, item);
 
     // promote item
-    let resPublish = await axios.post(`http://localhost:3355/stage/api/app/publish?id=${item.id}&name=${item.name}`);
+    let resPublish = await axios.post(host + `api/app/publish?id=${item.id}&name=${item.name}`);
     return resPublish;
 
 

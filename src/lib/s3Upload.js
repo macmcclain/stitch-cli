@@ -19,6 +19,7 @@ const upload = async (filePath, asset) => {
           reject(err);
         }
         else {
+          console.log("res", res)
           resolve();
         }
       }));
