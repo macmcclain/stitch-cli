@@ -10,24 +10,44 @@ var http = require('http');
 var recursive = require("recursive-readdir");
 var s3Upload = require('./lib/s3Upload');
 const chalk = require('chalk');
+var Ajv = require('ajv');
 
 
 const host = "https://epywlgqvlf.execute-api.us-east-1.amazonaws.com/stage/";
 //const host = "http://localhost:3355/stage/"
 
 module.exports = async (dir) => {
-  // get the config.yml file.
-  const configPath = path.join(dir, 'stitch.yml');
-  const config = YAML.load(configPath);
 
-  console.log(chalk.green(`Publishing to ${host}`));
+  let config = null;
+
 
   try {
+    console.log(chalk.green(`Validating stitch.yml file..`));
+    // get the config.yml file.
+    const configPath = path.join(dir, 'stitch.yml');
+    try {
+      config = YAML.load(configPath);
+      var ajv = new Ajv();
+      console.log("config", config)
+      const validation = ajv.addSchema(require("./schema/stitch"), 'stitch');
+      const valid = validation.validate('stitch', config);
+      if (!valid) {
+        throw new Error("stitch.yml Validation error: " + ajv.errors.map(e => e.message));
+      }
+
+    } catch (e) {
+      throw new Error(`Missing or Invalid stitch.yml file ${e.message}`)
+    }
+
+
+    console.log(chalk.green(`Creating new app version... ${config.version}`));
 
     //get all the assets in the publish_dir
     const assets = await recursive(config.publish_dir, [ "*.html", "*.map"]);
     const cleanAssets = assets.map(f => f.replace(config.publish_dir, ''));
 
+
+    console.log(chalk.green(`Publishing to ${host}`));
     // create the entry in the server.
     let resUpload = await axios.post(host + 'api/app/upload', {
       name: config.name,

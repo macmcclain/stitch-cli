@@ -1,0 +1,22 @@
+{
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "publish_dir": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "version",
+    "type",
+    "publish_dir"
+  ]
+}

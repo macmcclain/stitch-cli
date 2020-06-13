@@ -1,5 +1,5 @@
 {
-  "name": "stitch-cli",
+  "name": "stitch-cli-tool",
   "version": "1.0.1",
   "description": "",
   "main": "index.js",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "adm-zip": "^0.4.14",
+    "ajv": "^6.12.2",
     "aws-sdk": "^2.678.0",
     "axios": "^0.19.2",
     "chalk": "^4.1.0",
