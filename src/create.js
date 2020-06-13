@@ -100,6 +100,7 @@ module.exports = async (dir, opts) => {
   console.log(chalk.blue('Generating stitch.yml...'));
   await generateConfig(projectPath, {
     name: response.identifier,
+    version: "0.0.1",
     label: response.label,
     publishDir: 'dist',
     description: response.description,

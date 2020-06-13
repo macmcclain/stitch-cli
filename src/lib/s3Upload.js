@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const request = require('request');
 
-const upload = async (filePath, asset) => {
+const upload = async (filePath, asset, progress) => {
     return new Promise((resolve, reject) => {
       var stats = fs.statSync(filePath);
       fs.createReadStream(filePath).pipe(request({
@@ -15,23 +15,22 @@ const upload = async (filePath, asset) => {
         }
       }, function (err, res, body) {
         if(err) {
-          console.error("Error uploading to s3", err);
           reject(err);
         }
         else {
-          console.log("res", res)
+          progress(`    ${asset.file}`)
           resolve();
         }
       }));
     });
 }
 
-module.exports = async (dir, item) => {
+module.exports = async (dir, item, progress) => {
     // upload each asset attached to item.
     const promises = [];
     item.assets.forEach(async (asset) => {
       const filePath = path.join(dir, asset.file);
-      const promise = upload(filePath, asset);
+      const promise = upload(filePath, asset, progress);
       promises.push(promise);
     });
     await Promise.all(promises);
