@@ -4,7 +4,6 @@ A CLI (command line client) to create and publish Stitch apps for the Stitch mic
 
 ## Todo
 
-- Use the generated stitch.yml file instead of package.json.
 - Add the host option to publish
 
 ## Install
