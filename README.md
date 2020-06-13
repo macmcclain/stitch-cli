@@ -9,7 +9,7 @@ A CLI (command line client) to create and publish Stitch apps for the Stitch mic
 ## Install
 
 ```shell script
-npm install stitch-cli -g
+npm install stitch-cli-tool -g
 ```
 
 ## Commands
