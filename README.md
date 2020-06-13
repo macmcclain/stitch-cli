@@ -18,7 +18,7 @@ npm install stitch-cli-tool -g
 Create a new project from a template. Click [here](https://github.com/macmcclain/stitch-templates) for a list of templates.
 
 ```shell script
-$ stitch create --template vuejs-starter1 --project your-project-name
+$ stitch create --template vuejs-starter --project your-project-name
 ```
 
 ### Publish
