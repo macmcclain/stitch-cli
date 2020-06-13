@@ -107,6 +107,14 @@ module.exports = async (dir, opts) => {
     type: response.projectType
   });
 
+  // update package.json
+  console.log(chalk.green(`Updating package.json file`));
+  const packagePath = path.join(projectPath, 'package.json');
+  const packageFs = fs.readFileSync(packagePath);
+  let package = JSON.parse(packageFs);
+  package.name = response.identifier;
+  fs.writeFileSync(packagePath, JSON.stringify(package, null, 2));
+
 
   console.log(chalk.green(`Stitch project ready!`));
   console.log(chalk.green(`cd ${projectIdentifier}`));

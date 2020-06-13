@@ -35,6 +35,14 @@ module.exports = async (dir) => {
         throw new Error("stitch.yml Validation error: " + ajv.errors.map(e => e.message));
       }
 
+      // validate that the package.json name matches the config name
+      const packagePath = path.join(dir, 'package.json');
+      const packageFs = fs.readFileSync(packagePath);
+      let package = JSON.parse(packageFs);
+      if(package.name != config.name) {
+        throw new Error(`stitch.yml name: '${config.name}' does not match package.json name: '${package.name}' attribute. They must match.`);
+      }
+
     } catch (e) {
       throw new Error(`Missing or Invalid stitch.yml file ${e.message}`)
     }

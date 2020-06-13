@@ -14,8 +14,8 @@ cmdPublish.action((cmd, opts) => {
 
 const cmdCreate = program.command('create')
 cmdCreate.description('Create an app from templates.').usage("[command] <args>");
-cmdCreate.option('-t, --template <name>', 'Name of template to use.')
-cmdCreate.option('-p, --project <project-name>', 'Project name')
+cmdCreate.requiredOption('-t, --template <name>', 'Name of template to use.')
+cmdCreate.requiredOption('-p, --project <project-name>', 'Project name')
 cmdCreate.action((opts) => {
   create(process.cwd(), opts);
 });
