@@ -10,8 +10,8 @@
     "stitch": "./index.js"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/macmcclain/stitch-cli"
+    "type": "git",
+    "url": "https://github.com/macmcclain/stitch-cli"
   },
   "author": "Mac McClain",
   "license": "ISC",
@@ -22,6 +22,8 @@
     "axios": "^0.19.2",
     "chalk": "^4.1.0",
     "commander": "^5.1.0",
+    "console-table-printer": "^1.5.3",
+    "console.table": "^0.10.0",
     "curlrequest": "^1.0.1",
     "decompress": "^4.2.1",
     "decompress-targz": "^4.1.1",

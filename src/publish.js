@@ -11,14 +11,18 @@ var recursive = require("recursive-readdir");
 var s3Upload = require('./lib/s3Upload');
 const chalk = require('chalk');
 var Ajv = require('ajv');
+const profile = require('./lib/profile')
 
 
-const host = "https://epywlgqvlf.execute-api.us-east-1.amazonaws.com/stage/";
+//const host = "https://epywlgqvlf.execute-api.us-east-1.amazonaws.com/stage/";
 //const host = "http://localhost:3355/stage/"
 
 module.exports = async (dir) => {
 
   let config = null;
+
+  const p = profile.load();
+  const host = p.host;
 
 
   try {
