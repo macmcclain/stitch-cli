@@ -181,15 +181,17 @@ module.exports = async (dir, opts) => {
 
     // attempt pinging the app server to make sure that the credentials provided are good.
     console.log(`Validating the host and access_key...`);
+    let validationError = false;
     try {
       await axios.post(response.host + `api/ping`, {} , { headers: { 'x-api-key': response.access_key }});
       console.log(chalk.green(`Success! Config saved to '${configFilePath}'`));
     } catch (e) {
       console.log(chalk.red(`Error! The configuration was saved, but the Host or Access Key was invalid.`));
+      validationError = true;
     }
 
     console.log(chalk.green(` `));
-    printConfig(configFilePath, true);
+    printConfig(configFilePath, validationError);
 
   } catch (e) {
     console.log(chalk.red(`Unable to setup config file.`, e));
