@@ -9,19 +9,25 @@ const { printTable } = require('console-table-printer');
 
 module.exports = async (dir, opts) => {
 
-  // get the host
-  const p = profile.load();
-
-
   // id of app to delete
   const id = opts.app;
 
   try {
-    let result = await axios.post(p.host + 'api/app/' + id + '/remove');
-    const data = result.data;
+    // get the host
+    const p = profile.load(opts.profile);
+
+
+    // do the delete
+    try {
+      let result = await axios.post(p.host + 'api/app/' + id + '/remove', {}, { headers: { 'x-api-key': p.access_key }});
+      const data = result.data;
+    } catch (eLoad) {
+      throw Error(`Unable to remove app '${id}'. The app does not exist or there was an error on the server.`)
+    }
+
     console.log(chalk.green(`App '${id}' removed.`));
   } catch (e) {
-    console.log(chalk.red(`Unable to remove app '${id}'. The app does not exist or there was an error on the server.`));
+    console.log(chalk.red(`Unable to remove app '${id}'. ${e}`));
   }
 
 

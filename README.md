@@ -5,6 +5,7 @@ A CLI (command line client) to create and publish Stitch apps for the Stitch mic
 ## Todo
 
 - Add the host option to publish
+- Add option to create in current directory, instead of making a directory each time.
 - Update create to just update provided stitch.yml instead of creating one.
 
 ## Install
@@ -22,11 +23,20 @@ Create a new project from a template. Click [here](https://github.com/macmcclain
 $ stitch create --template vuejs-starter --project your-project-name
 ```
 
+
+### Config
+Setup your CLI config to be able to publish to the stitch servers.
+
+```shell script
+$ stitch config
+```
+
+
 ### Publish
 Publish your Stitch app to the server.
 
 ```shell script
-$ stitch publish --server name-of-your-server-config-entry
+$ stitch publish --server name-of-your-server-config-entry --profile server-profile-name [optional, defaults to default]
 ```
 
 
@@ -34,7 +44,7 @@ $ stitch publish --server name-of-your-server-config-entry
 List all active apps
 
 ```shell script
-$ stitch list --server name-of-your-server-config-entry
+$ stitch list --server name-of-your-server-config-entry --profile server-profile-name [optional, defaults to default]
 ```
 
 
@@ -42,7 +52,7 @@ $ stitch list --server name-of-your-server-config-entry
 Remove app by app id.
 
 ```shell script
-$ stitch remove --app id-of-your-app
+$ stitch remove --app id-of-your-app --profile server-profile-name [optional, defaults to default]
 ```
 
 ## Help

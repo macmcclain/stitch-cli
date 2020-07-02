@@ -9,25 +9,30 @@ const { printTable } = require('console-table-printer');
 
 module.exports = async (dir, opts) => {
 
-  // get the host
-  const p = profile.load();
+  try {
+    // get the host
+    const p = profile.load(opts.profile);
 
-  // get all the current items
-  let result = await axios.post(p.host + 'api/app/list');
-  const items = result.data;
+    // get all the current items
+    let result = await axios.post(p.host + 'api/app/list', {}, { headers: { 'x-api-key': p.access_key }});
+    const items = result.data;
 
-  // just pull the data we need.
-  const filteredItems = items.map(i = (i) => {
-    return { id: i.id, type: i.type, version: i.version, status: i.status }
-  })
+    // just pull the data we need.
+    const filteredItems = items.map(i = (i) => {
+      return { id: i.id, type: i.type, version: i.version, status: i.status }
+    })
 
-  // shoe the results in table form
-  if(filteredItems.length > 0) {
-    printTable(filteredItems);
+    // shoe the results in table form
+    if(filteredItems.length > 0) {
+      printTable(filteredItems);
+    }
+    else {
+      throw Error("No apps found");
+    }
+  } catch (e) {
+    console.log(chalk.red(`Unable to list apps. ${e}`));
   }
-  else {
-    console.log(chalk.red("No apps found"));
-  }
+
 
 
 }

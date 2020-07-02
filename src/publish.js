@@ -14,18 +14,18 @@ var Ajv = require('ajv');
 const profile = require('./lib/profile')
 
 
-//const host = "https://epywlgqvlf.execute-api.us-east-1.amazonaws.com/stage/";
-//const host = "http://localhost:3355/stage/"
-
-module.exports = async (dir) => {
+module.exports = async (dir, opts) => {
 
   let config = null;
 
-  const p = profile.load();
-  const host = p.host;
+
 
 
   try {
+    // get the server based on the profile.
+    const p = profile.load(opts.profile);
+    const host = p.host;
+
     console.log(chalk.green(`Validating stitch.yml file..`));
     // get the config.yml file.
     const configPath = path.join(dir, 'stitch.yml');
@@ -67,7 +67,7 @@ module.exports = async (dir) => {
       type: config.type,
       config: JSON.stringify(config),
       assets: JSON.stringify(cleanAssets)
-    });
+    }, { headers: { 'x-api-key': p.access_key }});
 
     // app item from server.
     const item = resUpload.data;
@@ -82,12 +82,18 @@ module.exports = async (dir) => {
 
     // promote item
     console.log(chalk.green('Promoting this version...'));
-    let resPublish = await axios.post(host + `api/app/publish?id=${item.id}&name=${item.name}`);
-
+    let resPublish = await axios.post(host + `api/app/publish?id=${item.id}&name=${item.name}`, {} , { headers: { 'x-api-key': p.access_key }});
 
     console.log(chalk.green('Done!'));
-    return resPublish;
 
+    if(config.type === 'app') {
+      console.log(chalk.green(`Visit ${host + config.name}`));
+    }
+    else {
+      console.log(chalk.green(`Visit ${host}`));
+    }
+
+    return resPublish;
 
   }
   catch (e) {
