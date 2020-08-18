@@ -9,6 +9,8 @@ const program = new commander.Command();
 
 const cmdPublish = program.command('publish').description('Publish the app to the stitch service.').usage("[command] [options]");;
 cmdPublish.option('--profile <name>', 'Name of server profile (leave empty for default).')
+cmdPublish.option('--host <host>', 'Url of host / endpoint')
+cmdPublish.option('--access-key <accessKey>', 'Access key')
 cmdPublish.action((opts) => {
   publish(process.cwd(), opts);
 });

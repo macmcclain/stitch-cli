@@ -18,12 +18,24 @@ module.exports = async (dir, opts) => {
 
   let config = null;
 
-
-
-
   try {
+
+    let p = null;
+
+    if(opts.host || opts.accessKey) {
+      // validate that both are provided.
+      if(!opts.host | !opts.accessKey) {
+        throw new Error(`When using the 'publish' option with the --host param, both the --access-key and --host are required. Otherwise use the --profile option.`)
+      }
+      p = {
+        host: opts.host,
+        access_key: opts.accessKey
+      }
+    } else {
+      p = profile.load(opts.profile);
+    }
+
     // get the server based on the profile.
-    const p = profile.load(opts.profile);
     const host = p.host;
 
     console.log(chalk.green(`Validating stitch.yml file..`));

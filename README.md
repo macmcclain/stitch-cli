@@ -4,9 +4,10 @@ A CLI (command line client) to create and publish Stitch apps for the Stitch mic
 
 ## Todo
 
-- Add the host option to publish
+- ~~Add the host option to publish~~
 - Add option to create in current directory, instead of making a directory each time.
-- Update create to just update provided stitch.yml instead of creating one.
+- Update "create" to just "update" provided stitch.yml instead of creating one.
+- Add version when creating from a template.
 
 ## Install
 
@@ -36,7 +37,14 @@ $ stitch config
 Publish your Stitch app to the server.
 
 ```shell script
-$ stitch publish --server name-of-your-server-config-entry --profile server-profile-name [optional, defaults to default]
+$ stitch publish --profile=server-profile-name [optional, defaults to default]
+```
+
+or
+
+```shell script
+# Use this pubolish option for automated deployments.
+$ stitch publish --host=[server-url] --acccess-key=[server-access-key]
 ```
 
 
