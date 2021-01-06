@@ -19,7 +19,7 @@
     "adm-zip": "^0.4.14",
     "ajv": "^6.12.2",
     "aws-sdk": "^2.678.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chalk": "^4.1.0",
     "commander": "^5.1.0",
     "console-table-printer": "^1.5.3",
